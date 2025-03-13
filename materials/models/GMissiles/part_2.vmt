@@ -1,0 +1,6 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models\GMissiles\part_2.vtf"
+
+	"$Model" 1
+}

@@ -1,0 +1,6 @@
+VertexLitGeneric
+{
+	$basetexture "models/GMissiles/buttons/chz_button_minus"
+
+	$translucent 1
+}

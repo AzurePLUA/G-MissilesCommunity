@@ -1,0 +1,6 @@
+VertexLitGeneric
+{
+	$basetexture "models/GMissiles/RGM-84_HARPOON_upscayl_4x_ultrasharp"
+
+	$model 1
+}

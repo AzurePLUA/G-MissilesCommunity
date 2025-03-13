@@ -1,0 +1,11 @@
+{
+	"title"		:	"GMissiles",
+	"type"		:	"effects",
+	"tags"		:	[ "fun", "realism" ],
+	"ignore"	:
+	[
+		"*.psd",
+		"*.vcproj",
+		"*.svn*"
+	]
+}
