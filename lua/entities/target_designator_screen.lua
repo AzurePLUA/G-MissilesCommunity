@@ -1,7 +1,7 @@
 -- screen_entity.lua
 
 -- Define the screen entity
---AddCSLuaFile()
+AddCSLuaFile()
 DEFINE_BASECLASS("base_gmodentity")
 
 ENT.Type = "anim"
