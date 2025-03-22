@@ -419,9 +419,10 @@ function ENT:PointT2() -- Simple missile targeting and tracking
 				local startAngle = self:GetAngles()
 				self.HomingAcc = self.HomingAcc + self.HomingAccIncrease
 				self.Point2 = true
-				self:SetMoveType(MOVETYPE_FLY) --Move type must be non vphysics for set velocity to work while setAngles is being executed.
-				self:SetLocalVelocity(self:GetForward()* self.HomingFlightSpeed)
-				self:SetAngles( LerpAngle( self.HomingAcc, startAngle, ang ) ) -- set missile angles to Point at entity v, which is the target 
+				--self:SetMoveType(MOVETYPE_FLY) --Move type must be non vphysics for set velocity to work while setAngles is being executed.
+				-- self:SetLocalVelocity(self:GetForward()* self.HomingFlightSpeed)
+				phys:AddVelocity(self:GetForward() * self.HomingFlightSpeed)
+				phys:SetAngles( LerpAngle( self.HomingAcc, startAngle, ang ) ) -- set missile angles to Point at entity v, which is the target 
 			 end
 	end
 	
@@ -449,9 +450,10 @@ function ENT:PointT3()
 				local startAngle = self:GetAngles()
 				self.HomingAcc = self.HomingAcc + self.HomingAccIncrease
 				self.Point3 = true
-				self:SetMoveType(MOVETYPE_FLY) 
-				self:SetLocalVelocity(self:GetForward()* self.HomingFlightSpeed)
-				self:SetAngles( LerpAngle( self.HomingAcc, startAngle, ang ) )
+				-- self:SetMoveType(MOVETYPE_FLY) 
+				-- self:SetLocalVelocity(self:GetForward()* self.HomingFlightSpeed)
+				phys:AddVelocity(self:GetForward() * self.HomingFlightSpeed)
+				phys:SetAngles( LerpAngle( self.HomingAcc, startAngle, ang ) )
 			
 				
 			end
@@ -482,9 +484,10 @@ function ENT:PointT4()
 				local startAngle = self:GetAngles()
 				self.HomingAcc = self.HomingAcc + self.HomingAccIncrease
 				self.Point4 = true
-				self:SetMoveType(MOVETYPE_FLY) --Move type must be non vphysics for set velocity to work while setAngles is being executed.
-				self:SetLocalVelocity(self:GetForward()* self.HomingFlightSpeed)
-				self:SetAngles( LerpAngle( self.HomingAcc, startAngle, ang ) )
+				-- self:SetMoveType(MOVETYPE_FLY) --Move type must be non vphysics for set velocity to work while setAngles is being executed.
+				-- self:SetLocalVelocity(self:GetForward()* self.HomingFlightSpeed)
+				phys:AddVelocity(self:GetForward() * self.HomingFlightSpeed)
+				phys:SetAngles( LerpAngle( self.HomingAcc, startAngle, ang ) )
 			
 				-- Point at entity v, which is the target and is set in the if statement
 			end
@@ -516,9 +519,10 @@ function ENT:PointT5()
 				local startAngle = self:GetAngles()
 				self.HomingAcc = self.HomingAcc + self.HomingAccIncrease
 				self.Point5 = true
-				self:SetMoveType(MOVETYPE_FLY) --Move type must be non vphysics for set velocity to work while setAngles is being executed.
-				self:SetLocalVelocity(self:GetForward()* self.HomingFlightSpeed)
-				self:SetAngles( LerpAngle( self.HomingAcc, startAngle, ang ) )
+				-- self:SetMoveType(MOVETYPE_FLY) --Move type must be non vphysics for set velocity to work while setAngles is being executed.
+				-- self:SetLocalVelocity(self:GetForward()* self.HomingFlightSpeed)
+				phys:AddVelocity(self:GetForward() * self.HomingFlightSpeed)
+				phys:SetAngles( LerpAngle( self.HomingAcc, startAngle, ang ) )
 				
 				
 			end
@@ -547,9 +551,10 @@ function ENT:PointT1() -- Simple missile targeting and tracking
 			local ang = ( thrusterpos - pos5):Angle()
 			local startAngle = self:GetAngles()
 			self.HomingAcc = self.HomingAcc + self.HomingAccIncrease
-			self:SetMoveType(MOVETYPE_FLY) --Move type must be non vphysics for set velocity to work while setAngles is being executed.
-			self:SetLocalVelocity(self:GetForward()* self.HomingFlightSpeed)
-			self:SetAngles( LerpAngle( self.HomingAcc, startAngle, ang ) )	
+			-- self:SetMoveType(MOVETYPE_FLY) --Move type must be non vphysics for set velocity to work while setAngles is being executed.
+			-- self:SetLocalVelocity(self:GetForward()* self.HomingFlightSpeed)
+			phys:AddVelocity(self:GetForward() * self.HomingFlightSpeed) 
+			phys:SetAngles( LerpAngle( self.HomingAcc, startAngle, ang ) )	
 		end
 	end
 	
@@ -576,9 +581,10 @@ function ENT:PointT6() -- Simple missile targeting and tracking
 			local ang = ( nextbotpos - pos6):Angle()
 			local startAngle = self:GetAngles()
 			self.HomingAcc = self.HomingAcc + self.HomingAccIncrease
-			self:SetMoveType(MOVETYPE_FLY) --Move type must be non vphysics for set velocity to work while setAngles is being executed.
-			self:SetLocalVelocity(self:GetForward()* self.HomingFlightSpeed)
-			self:SetAngles( LerpAngle( self.HomingAcc, startAngle, ang ) )	
+			-- self:SetMoveType(MOVETYPE_FLY) --Move type must be non vphysics for set velocity to work while setAngles is being executed.
+			-- self:SetLocalVelocity(self:GetForward()* self.HomingFlightSpeed)
+			phys:AddVelocity(self:GetForward() * self.HomingFlightSpeed)
+			phys:SetAngles( LerpAngle( self.HomingAcc, startAngle, ang ) )	
 		end
 	end
 	
@@ -606,9 +612,10 @@ function ENT:PointT7() -- Simple missile targeting and tracking
 			local ang = ( Targetedpos - pos7):Angle()
 			local startAngle = self:GetAngles()
 			self.HomingAcc = self.HomingAcc + self.HomingAccIncrease
-			self:SetMoveType(MOVETYPE_FLY) --Move type must be non vphysics for set velocity to work while setAngles is being executed.
-			self:SetLocalVelocity(self:GetForward()* self.HomingFlightSpeed)
-			self:SetAngles( LerpAngle( self.HomingAcc, startAngle, ang ) )	
+			-- self:SetMoveType(MOVETYPE_FLY) --Move type must be non vphysics for set velocity to work while setAngles is being executed.
+			-- self:SetLocalVelocity(self:GetForward()* self.HomingFlightSpeed)
+			phys:AddVelocity(self:GetForward() * self.HomingFlightSpeed)
+			phys:SetAngles( LerpAngle( self.HomingAcc, startAngle, ang ) )	
 		end
 	
 	
@@ -624,7 +631,7 @@ function ENT:PointT8() -- Simple missile targeting and tracking
 	if (self.Point5) then return end
 	if (self.Point6) then return end
 	if (self.Point7) then return end
-	
+	if self.screenEntityTarget == nil then return end
 	
 	--local MissileOwner = self:GetCreator()
 	local GmissilesScreenTarget = self.screenEntityTarget:GetNWEntity("NW_Target")
@@ -636,9 +643,10 @@ function ENT:PointT8() -- Simple missile targeting and tracking
 			local ang = ( ScreenTargetedpos - pos8):Angle()
 			local startAngle = self:GetAngles()
 			self.HomingAcc = self.HomingAcc + self.HomingAccIncrease
-			self:SetMoveType(MOVETYPE_FLY) --Move type must be non vphysics for set velocity to work while setAngles is being executed.
-			self:SetLocalVelocity(self:GetForward()* self.HomingFlightSpeed)
-			self:SetAngles( LerpAngle( self.HomingAcc, startAngle, ang ) )	
+			-- self:SetMoveType(MOVETYPE_FLY) --Move type must be non vphysics for set velocity to work while setAngles is being executed.
+			-- self:SetLocalVelocity(self:GetForward()* self.HomingFlightSpeed)
+			phys:AddVelocity(self:GetForward() * self.HomingFlightSpeed)
+			phys:SetAngles( LerpAngle( self.HomingAcc, startAngle, ang ) )	
 		end
 	
 	

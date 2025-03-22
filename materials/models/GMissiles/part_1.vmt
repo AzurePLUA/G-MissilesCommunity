@@ -1,5 +1,6 @@
-"VertexLitGeneric"
+VertexLitGeneric
 {
-	"$baseTexture" "models\GMissiles\part_1.vtf"
-	"$Model" 1
+	$basetexture "models/gmissiles/part_1"
+
+	$model 1
 }

@@ -1,4 +1,3 @@
- 
 AddCSLuaFile( "cl_init.lua" ) -- Make sure clientside
 AddCSLuaFile( "shared.lua" )  -- and shared scripts are sent.
  
@@ -44,6 +43,7 @@ function ENT:TriggerInput(iname, value)-- Tells launcher to spawn missile and la
 						end
 					end 
 				end			 
+
 end
         
 function ENT:Use( activator, caller )-- When I press E on the launcher, Activate, and launch
@@ -67,6 +67,30 @@ function ENT:Reload()--Simple missile launcher function
 			local phys = HAmraam:GetPhysicsObject()
 			phys:SetVelocity(HAmraam:GetForward()*900  )
 			self:EmitSound( "GMissiles/Launch/LaunchPuff.wav",75,100,1,CHAN_AUTO )
+			
+			-- Rotate the missile by 90 degrees over 2 seconds with a delay
+			local startTime = CurTime()
+			local duration = 2
+			local delay = 1.5 -- adjustable delay in seconds
+			local startAngle = phys:GetAngles()
+			local endAngle = startAngle + Angle(90, 0, 0)
+			local initialVelocity = (HAmraam:GetForward()*900)
+			
+			timer.Simple(delay, function()
+				timer.Create("RotateMissile", 0.01, duration * 100, function()
+					if not IsValid(phys) then return end
+					local elapsed = CurTime() - (startTime + delay)
+					local progress = math.Clamp(elapsed / duration, 0, 1)
+					local newAngle = LerpAngle(progress, startAngle, endAngle)
+					phys:SetAngles(newAngle)
+					phys:SetVelocity(initialVelocity) -- Maintain initial velocity
+					-- Apply a small force to ensure physics interactions
+					phys:ApplyForceCenter(Vector(0, 0, 1))
+					if progress >= 1 then
+						timer.Remove("RotateMissile")
+					end
+				end)
+			end)
 			
 			--Amraam:SetParent(self, 1)---Fucks up physics
 			self.Reloaded = true

@@ -327,7 +327,7 @@ function ENT:Think()
 		 phys:AddVelocity(self:GetForward() * (self.EnginePower*self.Power)) 
 	 end
 	 if (self.Armed) then
-        phys:AddAngleVelocity(Vector(0,10,0)) -- Rotational force, we dont use this
+        phys:AddAngleVelocity(Vector(0,0,0)) -- Rotational force, we dont use this
 	 end
 	 
 	 self:NextThink(CurTime() + 0.01)-- loop the think code
