@@ -63,25 +63,7 @@ AddCSLuaFile()
 	   			      ENT.DEFAULT_PHYSFORCE_PLYAIR = 25
 	   			      ENT.DEFAULT_PHYSFORCE_PLYGROUND = 2555
 	   			      ENT.GMISSILE                         = nil
-   
-	   			      sound.Add({
-	   				         name =          "Explo.MediumExplo",
-	   				         pitch		=	{100, 100},
-	   				         volume		=	1,
-	   				         channel		=	CHAN_AUTO,
-	   				         level =   		160,
-	   				         sound  =		"^GMissiles/explosions/explosion_petrol_medium.wav"
 
-	   			      })
-	   			      sound.Add({
-	   				         name =          "Missile_ARMED",
-	   				         pitch		=	{100, 100},
-	   				         volume		=	1,
-	   				         channel		=	CHAN_AUTO,
-	   				         level =   		90,
-	   				         sound  =		"GMissiles/arm/Armed.wav"
-
-	   			      })
 
  function ENT:SpawnFunction( ply, tr )-- Used so the ENT doesnt fucking spawn in the ground
 	

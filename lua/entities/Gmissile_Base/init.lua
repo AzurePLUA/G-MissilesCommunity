@@ -263,7 +263,7 @@ end
 
 function ENT:Use( activator, caller )-- When I press E on the missile, Activate, and launch
    if(self.Exploded) then return end
-	 if(self.Dumb) then return end
+	 --if(self.Dumb) then return end
 	 if(GetConVar("GMissiles_easyuse"):GetInt() >= 1) then
          if(self:IsValid()) then
              if (not self.Exploded) and (not self.Burnt) and (not self.Fired) then
@@ -682,68 +682,71 @@ function ENT:Think()
 	 if (self.Armed) then
         phys:AddAngleVelocity(Vector(self.RotationalForce,0,0)) -- Rotational force, we dont use this
 	 end
-	 
-	timer.Simple(self.TargetAquireDelay,function()-- calls on the missile to track a target after a short delay
-	if not self:IsValid() then return end 
-	
-	self:GetTarget()
-	
-	self:PointT2()
-	self:PointT3()
-	self:PointT4()
-	self:PointT5()
-	self:PointT1()
-	self:PointT6()
-	self:PointT7()
-	self:PointT8()
-	--print(self.HomingAcc)
-		timer.Simple(10,function()
+
+		timer.Simple(self.TargetAquireDelay,function()-- calls on the missile to track a target after a short delay
 			if not self:IsValid() then return end 
-			self.Pointing = true
+
+			if (not self.Dumb) then
 			
-			if(GetConVar("target_npc"):GetInt() >= 1) then
-					if TargetNpc:IsValid() and TargetNpc:IsNPC() then
-						self:SetMoveType(MOVETYPE_FLY)
-						self:PointAtEntity(TargetNpc)
-						self:SetLocalVelocity(self:GetForward()* self.HomingFlightSpeed)
+				self:GetTarget()
+				
+				self:PointT2()
+				self:PointT3()
+				self:PointT4()
+				self:PointT5()
+				self:PointT1()
+				self:PointT6()
+				self:PointT7()
+				self:PointT8()
+				--print(self.HomingAcc)
+				timer.Simple(10,function()
+					if not self:IsValid() then return end 
+					self.Pointing = true
+					
+					if(GetConVar("target_npc"):GetInt() >= 1) then
+							if TargetNpc:IsValid() and TargetNpc:IsNPC() then
+								self:SetMoveType(MOVETYPE_FLY)
+								self:PointAtEntity(TargetNpc)
+								self:SetLocalVelocity(self:GetForward()* self.HomingFlightSpeed)
+							end
 					end
-			end
-			
-			if(GetConVar("target_players"):GetInt() >= 1) then
-					if TargetPlayer:IsValid() and (TargetPlayer:IsPlayer()) then
-						self:SetMoveType(MOVETYPE_FLY)
-						self:SetLocalVelocity(self:GetForward()* self.HomingFlightSpeed)
-						self:PointAtEntity(TargetPlayer)
-						
+					
+					if(GetConVar("target_players"):GetInt() >= 1) then
+							if TargetPlayer:IsValid() and (TargetPlayer:IsPlayer()) then
+								self:SetMoveType(MOVETYPE_FLY)
+								self:SetLocalVelocity(self:GetForward()* self.HomingFlightSpeed)
+								self:PointAtEntity(TargetPlayer)
+								
+							end
 					end
-			end
-			
-			if(GetConVar("target_vehicles"):GetInt() >= 1) then
-					if TargetVehicle:IsValid() and TargetVehicle:IsVehicle() then
-						self:SetMoveType(MOVETYPE_FLY)
-						self:PointAtEntity(TargetVehicle)
-						self:SetLocalVelocity(self:GetForward()* self.HomingFlightSpeed)
+					
+					if(GetConVar("target_vehicles"):GetInt() >= 1) then
+							if TargetVehicle:IsValid() and TargetVehicle:IsVehicle() then
+								self:SetMoveType(MOVETYPE_FLY)
+								self:PointAtEntity(TargetVehicle)
+								self:SetLocalVelocity(self:GetForward()* self.HomingFlightSpeed)
+							end
 					end
-			end
-			
-			if(GetConVar("target_IR"):GetInt() >= 1) then
-					if TargetIR:IsValid() and TargetIR:IsInWorld() then
-						self:SetMoveType(MOVETYPE_FLY)
-						self:PointAtEntity(TargetIR)
-						self:SetLocalVelocity(self:GetForward()* self.HomingFlightSpeed)
+					
+					if(GetConVar("target_IR"):GetInt() >= 1) then
+							if TargetIR:IsValid() and TargetIR:IsInWorld() then
+								self:SetMoveType(MOVETYPE_FLY)
+								self:PointAtEntity(TargetIR)
+								self:SetLocalVelocity(self:GetForward()* self.HomingFlightSpeed)
+							end
 					end
-			end
-			
-			if(GetConVar("target_thrusters"):GetInt() >= 1) then
-					if TargetThruster:IsValid() and TargetThruster:IsInWorld() then
-						self:SetMoveType(MOVETYPE_FLY)
-						self:PointAtEntity(TargetThruster)
-						self:SetLocalVelocity(self:GetForward()* self.HomingFlightSpeed)
+					
+					if(GetConVar("target_thrusters"):GetInt() >= 1) then
+							if TargetThruster:IsValid() and TargetThruster:IsInWorld() then
+								self:SetMoveType(MOVETYPE_FLY)
+								self:PointAtEntity(TargetThruster)
+								self:SetLocalVelocity(self:GetForward()* self.HomingFlightSpeed)
+							end
 					end
+					
+					
+				end)
 			end
-			
-			
-		end)
 	
 	
 		    if (self.Touched) then -- if touch is set to true in the touch function, this is used to basicly "call" the function ENT:StartTouch(e) without actually calling it, because start touch is consistantly ran in a loop so it can't realy be called on.
