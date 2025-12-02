@@ -3,7 +3,7 @@ if SERVER then
 end
 
 SWEP.PrintName = "Missile Launcher"
-SWEP.Author = "YourName"
+SWEP.Author = "Forsomethings1"
 SWEP.Instructions = "Left click to shoot a missile."
 SWEP.Category = "G-Missiles"
 SWEP.Spawnable = true
@@ -30,7 +30,7 @@ function SWEP:PrimaryAttack()
     local barrel = ents.Create("AGM_114_HellFire_Dumb")
     if not IsValid(barrel) then return end
 
-    
+
     barrel:SetPos(owner:GetShootPos() + owner:GetAimVector() * 50)
     barrel:SetAngles(owner:EyeAngles())
     barrel:Spawn()
@@ -42,12 +42,12 @@ function SWEP:PrimaryAttack()
         phys:SetVelocity(owner:GetAimVector() * 1000)
     end
 
-    timer.Simple( 5, function() 
+    timer.Simple(5, function()
         if not IsValid(barrel) then return end
-        
-    barrel:TakeDamage( 100)
-    end )
+
+        barrel:TakeDamage(100)
+    end)
 
     self:SetNextPrimaryFire(CurTime() + .1)
-    self:HomingBarrel(barrel)
+    --  self:HomingBarrel(barrel)
 end
