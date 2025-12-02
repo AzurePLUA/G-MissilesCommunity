@@ -2,12 +2,12 @@ if SERVER then
     AddCSLuaFile()
 end
 
-SWEP.PrintName = "Homing Barrel Launcher"
+SWEP.PrintName = "Missile Launcher"
 SWEP.Author = "YourName"
-SWEP.Instructions = "Left click to shoot a homing barrel."
+SWEP.Instructions = "Left click to shoot a missile."
 SWEP.Category = "G-Missiles"
 SWEP.Spawnable = true
-SWEP.AdminOnly = false
+SWEP.AdminOnly = true
 
 SWEP.Primary.ClipSize = -1
 SWEP.Primary.DefaultClip = -1
