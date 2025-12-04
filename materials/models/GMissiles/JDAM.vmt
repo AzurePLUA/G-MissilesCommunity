@@ -1,0 +1,10 @@
+"VertexLitGeneric"
+{
+    "$basetexture" "models/gmissiles/t_jdam_d_dds"
+    "$surfaceprop" "metal"
+    "$model" "1"
+    "$phong" "1"
+    "$phongexponent" "10"
+    "$phongboost" "0.2"
+    "$phongfresnelranges" "[1 1 1]"
+}

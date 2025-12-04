@@ -1,0 +1,11 @@
+"VertexLitGeneric"
+{
+    "$basetexture" "models/gmissiles/vympel_r-77_d_dds"
+    "$bumpmap" "models/gmissiles/vympel_r-77_n"
+    "$surfaceprop" "metal"
+    "$model" "1"
+    "$phong" "1"
+    "$phongexponent" "10"
+    "$phongboost" "0.2"
+    "$phongfresnelranges" "[1 1 1]"
+}

@@ -1,0 +1,11 @@
+"VertexLitGeneric"
+{
+    "$basetexture" "models/gmissiles/kab-500l_d_dds"
+    "$bumpmap" "models/gmissiles/kab-500l_n"
+    "$surfaceprop" "metal"
+    "$model" "1"
+    "$phong" "1"
+    "$phongexponent" "10"
+    "$phongboost" "0.2"
+    "$phongfresnelranges" "[1 1 1]"
+}

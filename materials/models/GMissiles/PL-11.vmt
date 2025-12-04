@@ -1,0 +1,11 @@
+"VertexLitGeneric"
+{
+    "$basetexture" "models/gmissiles/ch_pl-11_d_dds"
+    "$bumpmap" "models/gmissiles/ch_pl-11_n"
+    "$surfaceprop" "metal"
+    "$model" "1"
+    "$phong" "1"
+    "$phongexponent" "10"
+    "$phongboost" "0.2"
+    "$phongfresnelranges" "[1 1 1]"
+}
