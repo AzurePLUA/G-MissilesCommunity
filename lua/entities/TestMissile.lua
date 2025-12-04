@@ -12,7 +12,7 @@
     ENT.Purpose			= "Missiles can target this"
     ENT.Instructions		= ""
      
-    ENT.Spawnable 			= true
+    ENT.Spawnable 			= false
     
     ENT.MissileModel                    =   "models/GMissiles/hellfire missile.mdl"
     ENT.RocketTrail                      =  "Rocket_Thrust"
@@ -32,9 +32,9 @@
     ENT.SmartLaunch                      =  false  
     ENT.Timed                            =  false 
     
-    ENT.ExplosionDamage                  =  2000
-    ENT.ExplosionRadius                  =  900            
-    ENT.PhysForce                        =  1000             
+    ENT.ExplosionDamage                  =  2000 -- Amount of damage dealt upon explosion
+    ENT.ExplosionRadius                  =  900  ---Radius of the explosion          
+    ENT.PhysForce                        =  1000 --Amount of force to apply to physics objects     
     ENT.SpecialRadius                    =  225           
     ENT.MaxIgnitionTime                  =  0           
     ENT.Life                             =  25            

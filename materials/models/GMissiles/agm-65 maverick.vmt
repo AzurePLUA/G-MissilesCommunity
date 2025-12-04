@@ -1,0 +1,6 @@
+VertexLitGeneric
+{
+	$basetexture "models/gmissiles/agm-65maverick_d_dds"
+
+	$model 1
+}
