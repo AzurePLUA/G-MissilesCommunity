@@ -2,7 +2,7 @@ ENT.Type = "anim"
 ENT.Base = "base_anim"
 
 
-ENT.Category     = "G-missiles Targeting "
+ENT.Category     = "G-missiles Targeting"
 ENT.PrintName    = "G-IR Target"
 ENT.Author       = "Forsomethings1"
 ENT.Contact      = "Don't"
