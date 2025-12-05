@@ -2,7 +2,7 @@ if SERVER then
     AddCSLuaFile()
 end
 
-SWEP.PrintName = "Missile Launcher"
+SWEP.PrintName = "Missile SPAMMER"
 SWEP.Author = "Forsomethings1"
 SWEP.Instructions = "Left click to shoot a missile."
 SWEP.Category = "G-Missiles"
