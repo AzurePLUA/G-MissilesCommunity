@@ -2,13 +2,13 @@ AddCSLuaFile()
 DEFINE_BASECLASS( "gmissile_base" )
 ENT.Type = "anim"
 ENT.Category = "G-Missiles Guided"
-ENT.PrintName = "Hellfire Guided"
+ENT.PrintName = "Hellfire AGM-114R guided"
 ENT.Author = "Forsomethings1"
 ENT.Contact = "Don't"
 ENT.Purpose = "Blow Shit Up"
 ENT.Instructions = "Hellfire"
 ENT.Spawnable = true
-ENT.MissileModel = "models/GMissiles/hellfire missile.mdl"
+ENT.MissileModel = "models/GMissiles/AGM-114_Hellfire.mdl"
 ENT.RocketTrail = "HellFire_Thrust"
 ENT.RocketBurnoutTrail = "HellFire_burnout"
 ENT.Effect = "50lb_main"

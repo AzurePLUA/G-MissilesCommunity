@@ -29,6 +29,15 @@ sound.Add({
 	
 })
 sound.Add({
+	name =          "Explosion2HE",
+	pitch		=	{90, 100},
+	volume		=	1,
+	channel		=	CHAN_AUTO,
+	level =   		160,
+	sound  =		"^GMissiles/explosions/Explosion2HE.mp3"
+	
+})
+sound.Add({
 	name =          "Explosion3",
 	pitch		=	{100, 100},
 	volume		=	1,

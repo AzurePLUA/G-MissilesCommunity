@@ -136,6 +136,8 @@ end
 function ENT:Explode() -- THE EXPLOSION FUNCTION
 	-- if self.Exploded ==true then self:EmitSound(self.ExplosionSound, 511, 100, 1, CHAN_WEAPON)end
      if not self.Exploded then return end
+	 if self._Exploding then return end	 
+	 self._Exploding = true
 	 local pos = self:LocalToWorld(self:OBBCenter())
 	 
 	  	 local ent = ents.Create("shockwave")  --Create an ent that causes explosion damage and phys data at the location missile hit
@@ -227,6 +229,7 @@ function ENT:Explode() -- THE EXPLOSION FUNCTION
 		 nbc:Activate()
 	 end
 	 self:Remove()
+	 
 end
 
 function ENT:PhysicsCollide( data, physobj )-- WERE HIT, ARM OR EXPLODE
