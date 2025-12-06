@@ -755,7 +755,7 @@ function ENT:Think()
 		    if (self.Touched) then -- if touch is set to true in the touch function, this is used to basicly "call" the function ENT:StartTouch(e) without actually calling it, because start touch is consistantly ran in a loop so it can't realy be called on.
 		 
 				for k, ply in pairs( player.GetAll() ) do-- get all players 
-					ply:ChatPrint( "Target Direct Hit!!!" )
+				--ply:ChatPrint( "Target Direct Hit!!!" )
 				end
 				
 				
@@ -766,7 +766,7 @@ function ENT:Think()
 		 if (self.TouchedWorld) then -- if touchWorld is set to true in the touch function, this is used to basicly "call" the function ENT:StartTouch(e) without actually calling it, because start touch is consistantly ran in a loop so it can't realy be called on.
 		 
 				for k, ply in pairs( player.GetAll() ) do-- get all players 
-					ply:ChatPrint( "Missile Hit World!!!" )
+				--ply:ChatPrint( "Missile Hit World!!!" )
 				end
 				self.Exploded = true-- if missile touches something during tracking then explode
 				self:Explode()
