@@ -77,11 +77,15 @@ function SWEP:SecondaryAttack()
     end
 
     -- Server-only: spawn and launch the missile
+
     if SERVER then
         local owner = self:GetOwner()
         local Missile = ents.Create("TY_90_Guided")
 
         if not IsValid(Missile) then return end
+
+        -- Prevent freezing on spawn for this missile
+        Missile.ShouldFreezeOnSpawn = function() return false end
 
         Missile:SetPos(owner:GetShootPos() + owner:GetAimVector() * 50)
         Missile:SetAngles(owner:EyeAngles())

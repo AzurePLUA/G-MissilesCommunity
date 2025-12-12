@@ -59,6 +59,8 @@ end
 function ENT:Reload()--Simple missile launcher function
 		
 			HAmraam = ents.Create( "RGM_84_Harpoon_Dumb" )-- Create missile
+			-- Prevent freezing on spawn for this missile
+			HAmraam.ShouldFreezeOnSpawn = function() return false end
 			HAmraam:SetPos( self:GetPos() )
 			HAmraam:SetAngles(Angle(self:GetAngles()))
 			HAmraam:Spawn()
@@ -103,6 +105,8 @@ end
 
 function ENT:ReloadGuided()
 			HAmraamG = ents.Create( "RGM_84_Harpoon_Guided" )-- Create missile
+			-- Prevent freezing on spawn for this missile
+			HAmraamG.ShouldFreezeOnSpawn = function() return false end
 			HAmraamG:SetPos( self:GetPos() )
 			HAmraamG:SetAngles(Angle(self:GetAngles()))
 			HAmraamG:Spawn()

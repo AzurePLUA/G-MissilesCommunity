@@ -59,6 +59,8 @@ end
 function ENT:Reload()--Simple missile launcher function
 		
 			Amraam = ents.Create( "AIM_120D_AMRAAM_Dumb" )-- Create missile
+			-- Prevent freezing on spawn for this missile
+			Amraam.ShouldFreezeOnSpawn = function() return false end
 			Amraam:SetPos( self:GetPos() )
 			Amraam:SetAngles(Angle(self:GetAngles()))
 			Amraam:Spawn()
@@ -78,6 +80,8 @@ end
 
 function ENT:ReloadGuided()
 			AmraamG = ents.Create( "AIM_120D_AMRAAM_Guided" )-- Create missile
+			-- Prevent freezing on spawn for this missile
+			AmraamG.ShouldFreezeOnSpawn = function() return false end
 			AmraamG:SetPos( self:GetPos() )
 			AmraamG:SetAngles(Angle(self:GetAngles()))
 			AmraamG:Spawn()

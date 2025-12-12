@@ -45,51 +45,57 @@ local TargetIR = NULL
 local TargetThruster = NULL
 local TargetNextBot = NULL
 
+
+-- Allow override: entities can define ENT.ShouldFreezeOnSpawn to return true/false
+function ENT:ShouldFreezeOnSpawn()
+	local disableAll = GetConVar("gmissiles_disable_motion_on_spawn") and GetConVar("gmissiles_disable_motion_on_spawn"):GetBool()
+	return disableAll or self.FreezeOnSpawn
+end
+
 function ENT:Initialize()
- if (SERVER) then
-	self:SetModel( self.MissileModel )
-	self:PhysicsInit( SOLID_VPHYSICS )      -- Make us work with physics,
-	self:SetMoveType(MOVETYPE_VPHYSICS)   -- after all, gmod is a physics
-	self:SetSolid( SOLID_VPHYSICS )         -- Toolbox
-	--self:SetTrigger( true )
-        local phys = self:GetPhysicsObject()
-	if (phys:IsValid()) then
-		phys:SetMass(self.Mass)
+	if (SERVER) then
+		self:SetModel(self.MissileModel)
+		self:PhysicsInit(SOLID_VPHYSICS)
+		self:SetMoveType(MOVETYPE_VPHYSICS)
+		self:SetSolid(SOLID_VPHYSICS)
+		--self:SetTrigger(true)
+		local phys = self:GetPhysicsObject()
+		if (phys:IsValid()) then
+			phys:SetMass(self.Mass)
 			phys:Wake()
 
 			-- Apply global or per-entity freeze-on-spawn behavior after physics initializes
 			timer.Simple(0, function()
 				if not IsValid(self) then return end
-				local disableAll = GetConVar("gmissiles_disable_motion_on_spawn") and GetConVar("gmissiles_disable_motion_on_spawn"):GetBool()
-				if disableAll or self.FreezeOnSpawn then
+				if self.ShouldFreezeOnSpawn and self:ShouldFreezeOnSpawn() then
 					self:SetFrozen(true)
 				end
 			end)
-	end
-	
+		end
+
 		--self:SetTrigger(true)
-		
-	 self.TouchedWorld = false
-	 self.Touched = false
-	 self.Removed = false
-	 self.Armed    = false
-	 self.Exploded = false
-	 self.Fired    = false
-	 self.Burnt    = false
-	 self.Ignition = false
-	 self.Arming   = false
-	 self.Pointing = false
-	 self.Point1 = false
-	 self.Point2 = false
-	 self.Point3 = false
-	 self.Point4 = false
-	 self.Point5 = false
-	 self.Point6 = false
-	 self.Point7 = false
-	 self.Power    = 0.5
-	 
-	 if not (WireAddon == nil) then self.Inputs = Wire_CreateInputs(self, { "Arm", "Detonate", "Launch" }) end -- wiremod Inputs
-	 end
+
+		self.TouchedWorld = false
+		self.Touched = false
+		self.Removed = false
+		self.Armed    = false
+		self.Exploded = false
+		self.Fired    = false
+		self.Burnt    = false
+		self.Ignition = false
+		self.Arming   = false
+		self.Pointing = false
+		self.Point1 = false
+		self.Point2 = false
+		self.Point3 = false
+		self.Point4 = false
+		self.Point5 = false
+		self.Point6 = false
+		self.Point7 = false
+		self.Power    = 0.5
+
+		if not (WireAddon == nil) then self.Inputs = Wire_CreateInputs(self, { "Arm", "Detonate", "Launch" }) end -- wiremod Inputs
+	end
 end
 
 function ENT:TriggerInput(iname, value)
