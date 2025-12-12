@@ -88,6 +88,17 @@ local function GMissilesSettings( CPanel )
 			net.SendToServer();
 		end
 	end
+
+	local disableMotion = CPanel:AddControl( "CheckBox", { Label = "Disable Motion On Spawn", Command = "gmissiles_disable_motion_on_spawn" } );
+	disableMotion.OnChange = function( panel, bVal ) 
+		if( LocalPlayer() and not Created ) then
+			if( ( bVal and 1 or 0 ) == cvars.Number( "gmissiles_disable_motion_on_spawn" ) ) then return end
+			net.Start( "gmissiles_cvar" );
+				net.WriteString( "gmissiles_disable_motion_on_spawn" );
+				net.WriteFloat( bVal and 1 or 0 );
+			net.SendToServer();
+		end
+	end
 	
 	
 	local soundIR = CPanel:AddControl( "CheckBox", { Label = "Should G-IR emit sound?", Command = "ir_sound" } );

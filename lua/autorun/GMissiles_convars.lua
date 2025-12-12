@@ -7,6 +7,7 @@ CreateConVar("GMissiles_fragility", "1", { FCVAR_SERVER_CAN_EXECUTE, FCVAR_REPLI
 CreateConVar("GMissiles_shockwave_unfreeze", "1", { FCVAR_SERVER_CAN_EXECUTE, FCVAR_REPLICATED, FCVAR_ARCHIVE, FCVAR_NOTIFY } )
 CreateConVar("GMissiles_decals", "1", { FCVAR_SERVER_CAN_EXECUTE, FCVAR_REPLICATED, FCVAR_ARCHIVE, FCVAR_NOTIFY } )
 CreateConVar("GMissiles_realistic_sound", "1", { FCVAR_SERVER_CAN_EXECUTE, FCVAR_REPLICATED, FCVAR_ARCHIVE, FCVAR_NOTIFY } )
+CreateConVar("gmissiles_disable_motion_on_spawn", "0", { FCVAR_SERVER_CAN_EXECUTE, FCVAR_REPLICATED, FCVAR_ARCHIVE, FCVAR_NOTIFY } ) -- Disable motion on missile spawn (freeze)
 CreateConVar("target_players", "0", { FCVAR_SERVER_CAN_EXECUTE, FCVAR_REPLICATED, FCVAR_ARCHIVE, FCVAR_NOTIFY } )
 CreateConVar("target_vehicles", "1", { FCVAR_SERVER_CAN_EXECUTE, FCVAR_REPLICATED, FCVAR_ARCHIVE, FCVAR_NOTIFY } )
 CreateConVar("target_Npc", "1", { FCVAR_SERVER_CAN_EXECUTE, FCVAR_REPLICATED, FCVAR_ARCHIVE, FCVAR_NOTIFY } )

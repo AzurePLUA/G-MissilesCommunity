@@ -8,6 +8,22 @@ include('shared.lua')
 						   --NAH just kidding, Feel free to have a snoop:P--
 DEFINE_BASECLASS( "base_anim" )
 
+local function phys_valid(p) return p and IsValid(p) end
+
+function ENT:SetFrozen(state)
+	state = tobool(state)
+	local phys = self:GetPhysicsObject()
+	if phys_valid(phys) then
+		phys:EnableMotion(not state)
+		if not state then
+			phys:Wake()
+		end
+	end
+
+	-- Do not change movetype here; keep movetype as vphysics and only enable/disable physics motion
+	self._Frozen = state
+end
+
 local ImpactSounds = {}
 ImpactSounds[1]                      =  "chappi/imp0.wav"
 ImpactSounds[2]                      =  "chappi/imp1.wav"
@@ -39,7 +55,16 @@ function ENT:Initialize()
         local phys = self:GetPhysicsObject()
 	if (phys:IsValid()) then
 		phys:SetMass(self.Mass)
-		phys:Wake()
+			phys:Wake()
+
+			-- Apply global or per-entity freeze-on-spawn behavior after physics initializes
+			timer.Simple(0, function()
+				if not IsValid(self) then return end
+				local disableAll = GetConVar("gmissiles_disable_motion_on_spawn") and GetConVar("gmissiles_disable_motion_on_spawn"):GetBool()
+				if disableAll or self.FreezeOnSpawn then
+					self:SetFrozen(true)
+				end
+			end)
 	end
 	
 		--self:SetTrigger(true)
@@ -298,6 +323,7 @@ end
 	     if(phys:IsValid()) then
              phys:Wake()
 		     phys:EnableMotion(true)
+			 self:SetFrozen(false)
 	     end
 	 end)
 	 
