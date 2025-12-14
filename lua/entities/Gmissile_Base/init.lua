@@ -638,6 +638,7 @@ function ENT:PointT7() -- Simple missile targeting and tracking
 
 
 	local MissileOwner = self:GetCreator()
+	if not IsValid(MissileOwner) or not MissileOwner:IsPlayer() then return end
 	local GmissilesMarkedTarget = MissileOwner:GetNWEntity("MarkedTarget")
 		if MissileOwner:IsValid() and MissileOwner:IsPlayer() and GmissilesMarkedTarget:IsValid()  then
 			self.Point7 = true
