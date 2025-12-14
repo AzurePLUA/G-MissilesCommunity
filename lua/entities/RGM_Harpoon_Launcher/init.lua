@@ -136,6 +136,31 @@ function ENT:OnRemove()--Removes spawned missiles
 	end
 end
 
+function ENT:OnRestore()
+     Wire_Restored(self.Entity)
+end
+
+function ENT:BuildDupeInfo()
+     return WireLib.BuildDupeInfo(self.Entity)
+end
+
+function ENT:ApplyDupeInfo(ply, ent, info, GetEntByID)
+     WireLib.ApplyDupeInfo( ply, ent, info, GetEntByID )
+end
+
+function ENT:PreEntityCopy()
+     local DupeInfo = self:BuildDupeInfo()
+     if(DupeInfo) then
+         duplicator.StoreEntityModifier(self,"WireDupeInfo",DupeInfo)
+     end
+end
+
+function ENT:PostEntityPaste(Player,Ent,CreatedEntities)
+     if(Ent.EntityMods and Ent.EntityMods.WireDupeInfo) then
+         Ent:ApplyDupeInfo(Player, Ent, Ent.EntityMods.WireDupeInfo, function(id) return CreatedEntities[id] end)
+     end
+end
+
 function ENT:SpawnFunction( ply, tr )-- Used so the ENT doesnt fucking spawn in the ground
 	
     if ( not tr.Hit ) then return end
