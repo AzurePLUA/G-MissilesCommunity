@@ -847,26 +847,26 @@ function ENT:OnRemove() -- when removed do the shit inside me
 	 self.Removed = true
 end
 
-function ENT:OnRestore()--MAKE DUPES WORK!!
+function ENT:OnRestore()
      Wire_Restored(self.Entity)
 end
 
-function ENT:BuildDupeInfo()-- MAKE DUPES WORK!!
+function ENT:BuildDupeInfo()
      return WireLib.BuildDupeInfo(self.Entity)
 end
 
-function ENT:ApplyDupeInfo(ply, ent, info, GetEntByID)-- MAKE DUPES WORK!!
+function ENT:ApplyDupeInfo(ply, ent, info, GetEntByID)
      WireLib.ApplyDupeInfo( ply, ent, info, GetEntByID )
 end
 
-function ENT:PrentityCopy()-- MAKE DUPES WORK!!
+function ENT:PreEntityCopy()
      local DupeInfo = self:BuildDupeInfo()
      if(DupeInfo) then
-         duplicator.StorentityModifier(self.Entity,"WireDupeInfo",DupeInfo)
+         duplicator.StoreEntityModifier(self,"WireDupeInfo",DupeInfo)
      end
 end
 
-function ENT:PostEntityPaste(Player,Ent,CreatedEntities)-- MAKE DUPES WORK!!
+function ENT:PostEntityPaste(Player,Ent,CreatedEntities)
      if(Ent.EntityMods and Ent.EntityMods.WireDupeInfo) then
          Ent:ApplyDupeInfo(Player, Ent, Ent.EntityMods.WireDupeInfo, function(id) return CreatedEntities[id] end)
      end
