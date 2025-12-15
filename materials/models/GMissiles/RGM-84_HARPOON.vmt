@@ -1,6 +1,17 @@
 VertexLitGeneric
 {
 	$basetexture "models/gmissiles/rgm-84_harpoon_upscayl_4x_ultrasharp"
+	$bumpmap "models/gmissiles/rgm-84_harpoon_normal_soft"
+	$surfaceprop Metal_Barrel
+
+	$detail "models/GMissiles/Brushed_metal_Detail_seemless"
+
+	$phong 1
+	$phongfresnelranges "[0.19 0.59 1]"
+	$phongtint "[0.34 0.34 0.34]"
+	$phongexponent 13
+	$phongboost 5.57
+	$phongalbedoboost 2.8
 
 	$model 1
 }
