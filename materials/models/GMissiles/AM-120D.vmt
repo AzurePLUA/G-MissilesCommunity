@@ -1,6 +1,6 @@
 VertexLitGeneric
 {
-	$basetexture "models/gmissiles/am-120d"
+	$basetexture "models/GMissiles/AM-120D_LowR"
 
 	$model 1
 }
