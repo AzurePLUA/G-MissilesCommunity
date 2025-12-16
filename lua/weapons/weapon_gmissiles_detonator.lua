@@ -3,7 +3,7 @@ if SERVER then
 end
 
 if CLIENT then
-    SWEP.PrintName = "GMissiles Remote Launcher"
+    SWEP.PrintName = "Remote Launcher"
     SWEP.Slot = 1
     SWEP.SlotPos = 1
     SWEP.DrawAmmo = false
