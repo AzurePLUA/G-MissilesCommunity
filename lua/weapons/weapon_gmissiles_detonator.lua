@@ -34,13 +34,21 @@ SWEP.Secondary.Ammo = "none"
 SWEP.LaunchRadius = 2000
 SWEP.Cooldown = 1
 
+
+
 function SWEP:Initialize()
     self:SetHoldType("slam")  -- Use "slam" hold type for this weapon
-    self:SendWeaponAnim(ACT_SLAM_DETONATOR_IDLE) -- Set initial animation to idle
+    self:SendWeaponAnim(ACT_SLAM_DETONATOR_DETONATE) -- Set initial animation to idle
 end
 
 function SWEP:Reload() end
 function SWEP:Think() end
+
+function SWEP:Deploy()
+    self:SendWeaponAnim(ACT_SLAM_DETONATOR_DETONATE)
+    
+    return true
+end
 
 function SWEP:PrimaryAttack()
     if CLIENT then return end
@@ -84,9 +92,10 @@ function SWEP:RemoteLaunch()
     end
     if found > 0 then
         ply:ChatPrint("Launched " .. found .. " missile(s).")
-        self:EmitSound("GMissiles/arm/hominglockaquired1.wav", 75, 100)
+        --self:EmitSound("GMissiles/arm/hominglockaquired1.wav", 75, 100)
+        sound.Play("GMissiles/arm/hominglockaquired1.wav",self:GetPos(),75, 100)
     else
-        ply:ChatPrint("No launchable G-Missiles found in range.")
+        ply:ChatPrint("Remote Launcher: No launchable G-Missiles found in range.")
     end
 end
 
@@ -106,7 +115,8 @@ function SWEP:SecondaryAttack()
     else
         self.LaunchRadius = 500  -- Fallback to default
     end
-    self:EmitSound("Weapon_Pistol.Empty")
+    --self:EmitSound("Weapon_Pistol.Empty")
+    sound.Play("Weapon_Pistol.Empty",self:GetPos(),75, 100)
     self.Owner:ChatPrint("Launch radius set to " .. self.LaunchRadius)
     
     self:SetNextSecondaryFire(CurTime() + 0.3)
