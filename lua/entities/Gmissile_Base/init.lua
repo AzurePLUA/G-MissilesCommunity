@@ -84,6 +84,7 @@ function ENT:Initialize()
 		self.Burnt    = false
 		self.Ignition = false
 		self.Arming   = false
+		self.Tracking = false
 		self.Pointing = false
 		self.Point1 = false
 		self.Point2 = false
@@ -93,6 +94,30 @@ function ENT:Initialize()
 		self.Point6 = false
 		self.Point7 = false
 		self.Power    = 0.5
+		---------------------------------------------------------------
+		--Add drag via missile tail fin for dumb missiles
+		---------------------------------------------------------------
+		--[[
+		if (self.Dumb) then
+		MissileTailFin=ents.Create("prop_physics")
+			MissileTailFin:SetModel("models/props_junk/cardboard_box001a.mdl")
+			MissileTailFin:SetPos(self:GetPos()-self:GetForward()*50)
+			MissileTailFin.HasTailFin=true
+			MissileTailFin:Spawn()
+			MissileTailFin:SetParent(self)
+			MissileTailFin:Activate()
+			MissileTailFin:GetPhysicsObject():SetMass(1)
+			MissileTailFin:SetNotSolid(true)
+			MissileTailFin:SetNoDraw(true)
+			self:DeleteOnRemove(MissileTailFin)
+			constraint.Weld(self.Entity,MissileTailFin,0,0,0,true)
+			self.DupeFixTailFin = MissileTailFin
+			print("Tail Fin Added")  --Debugging line
+		end
+		--]]
+		---------------------------------------------------------------
+		--Add drag via missile tail fin for dumb missiles
+		---------------------------------------------------------------
 
 		if not (WireAddon == nil) then self.Inputs = Wire_CreateInputs(self, { "Arm", "Detonate", "Launch" }) end -- wiremod Inputs
 	end
@@ -688,8 +713,44 @@ function ENT:PointT8() -- Simple missile targeting and tracking
 	
 end 
 
+function ENT:MissleDrag(mult, spdReq) -- missle drag function for missiles that arent tracking, Used to point the missile forward towards its direction of travel to simulate fins and drag
+	if(self.Exploded) then return end
+	if(self.Burned) then return end
+  	if not self:IsValid() then return end
+	if (self.Tracking) then return end
+	if (self.MissileHasDrag == false) then return end
+	if constraint.FindConstraint(self, "Weld") then return end
+	if self:IsPlayerHolding() then return end
+
+	local Phys = self:GetPhysicsObject()
+	if not IsValid(Phys) then return end
+	local Vel = Phys:GetVelocity()
+	local Spd = Vel:Length()
+	local forward = self:GetForward() * self.MissileDragAmmount 
+	if not spdReq then
+		spdReq = 300 -- minimum speed required for drag to take effect
+	end
+
+	if Spd < spdReq then return end
+	mult = mult or 1 -- drag multiplier
+	self.MissileMassCenter = self.MissileMassCenter or Phys:GetMassCenter() -- Center of mass handling: By default, use the model's origin. Can be overridden with a custom offset (self.MissileMassCenter). Fallback to physobj's calculated mass center if neither is set.
+	local Pos, Mass = Phys:LocalToWorld(self.MissileMassCenter), Phys:GetMass()
+	Phys:ApplyForceOffset(Vel * Mass / 6 * mult, Pos + forward) -- Push on the "front" of the physobj to create a torque 
+	Phys:ApplyForceOffset(-Vel * Mass / 6 * mult, Pos - forward) -- Pull on the "back" of the physobj to create a torque 
+	local AngVel = Phys:GetAngleVelocity()
+	Phys:AddAngleVelocity(-AngVel * Mass / 1000)-- This directly damps angular velocity to prevent endless spinning.
+
+	self.DragAmountMultiplyer = mult -- Store the drag amount multiplyer
+
+    --print("Missile Drag Function Called")
+    
+end
+
 
 function ENT:Think()
+	
+	self:MissleDrag(2) -- call the drag function for missiles this simulates aerodynamic drag on the missile body
+	
     if(self.Burnt) then return end
      if(not self.Ignition) then return end -- if there wasn't ignition, we won't fly
 	 if(self.Exploded) then return end -- if we exploded then what the fuck are we doing here
@@ -700,6 +761,9 @@ function ENT:Think()
 	 elseif self.Power >=1.5 then
 		self.Power = 1.5
 	 end
+
+
+
 	 local phys = self:GetPhysicsObject()  
 	 local thrustpos = self:GetPos()
 	 if(self.ForceOrientation == "RIGHT") then
@@ -708,7 +772,7 @@ function ENT:Think()
 	     phys:AddVelocity(self:GetRight() * -self.EnginePower) -- Same as above but left...
 	 elseif(self.ForceOrientation == "UP") then
 	     phys:AddVelocity(self:GetUp() * self.EnginePower) -- Same as above but... you get the point
-	elseif(self.ForceOrientation == "DOWN") then 
+	 elseif(self.ForceOrientation == "DOWN") then 
 	     phys:AddVelocity(self:GetUp() * -self.EnginePower) 
 	 elseif(self.ForceOrientation == "INV") then
 	     phys:AddVelocity(self:GetForward() * -self.EnginePower) 
@@ -721,7 +785,7 @@ function ENT:Think()
 
 		timer.Simple(self.TargetAquireDelay,function()-- calls on the missile to track a target after a short delay
 			if not self:IsValid() then return end 
-
+			self.Tracking = true -- set tracking to true so drag function knows to not work and so other functions know we are tracking
 			if (not self.Dumb) then
 			
 				self:GetTarget()
@@ -735,9 +799,9 @@ function ENT:Think()
 				self:PointT7()
 				self:PointT8()
 				--print(self.HomingAcc)
-				timer.Simple(10,function()
+				timer.Simple(10,function() --- secondary timer to ensure missiles eventually directly point at targets to aviod infinite orbiting
 					if not self:IsValid() then return end 
-					self.Pointing = true
+					self.Pointing = true -- set pointing to true so we exit the other point functions to avoid orbiting
 					
 					if(GetConVar("target_npc"):GetInt() >= 1) then
 							if TargetNpc:IsValid() and TargetNpc:IsNPC() then

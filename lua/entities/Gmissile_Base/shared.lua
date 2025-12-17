@@ -56,6 +56,11 @@ ENT.HomingAcc    = 0
 ENT.HomingAccIncrease	= 0.005
 ENT.HomingFlightSpeed = 20000
 ENT.TargetAquireDelay = 1.4
+
+ENT.MissileHasDrag = true
+ENT.MissileDragAmmount = 1
+ENT.DragAmountMultiplyer = 20
+ENT.MissileMassCenter = Vector(0,0,0)
 ENT.GuiOffset = 55
 
 ENT.DEFAULT_PHYSFORCE = 255

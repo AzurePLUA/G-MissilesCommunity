@@ -54,6 +54,7 @@ ENT.HomingFlightSpeed = 2000 -- When Missile is tracking, this controls how fast
 ENT.TargetAquireDelay = 4
 ENT.GuiOffset = 25
 ENT.FuelBurnoutDetonateTime = 20
+ENT.MissileDragAmmount = 10
 
 function ENT:SpawnFunction( ply, tr ) -- Used so the ENT doesnt fucking spawn in the ground
 

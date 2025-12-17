@@ -55,6 +55,7 @@ ENT.DEFAULT_PHYSFORCE = 255
 ENT.DEFAULT_PHYSFORCE_PLYAIR = 25
 ENT.DEFAULT_PHYSFORCE_PLYGROUND = 2555
 ENT.GMISSILE = nil
+ENT.MissileDragAmmount = 3
 
 function ENT:SpawnFunction(ply, tr) -- Used so the ENT doesnt fucking spawn in the ground
     if (not tr.Hit) then return end

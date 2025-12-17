@@ -91,6 +91,7 @@ function SWEP:SecondaryAttack()
         Missile:SetAngles(owner:EyeAngles())
         Missile:SetCreator(owner)
         Missile:Spawn()
+        Missile.MissileHasDrag = false
         Missile:Launch()
 
         local phys = Missile:GetPhysicsObject()

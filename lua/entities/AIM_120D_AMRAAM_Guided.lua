@@ -64,6 +64,7 @@ AddCSLuaFile()
                      ENT.DEFAULT_PHYSFORCE_PLYAIR = 25
                      ENT.DEFAULT_PHYSFORCE_PLYGROUND = 2555
                      ENT.GMISSILE                         = nil
+                     ENT.MissileDragAmmount = 4
                      
 
  function ENT:SpawnFunction( ply, tr )-- Used so the ENT doesnt fucking spawn in the ground

@@ -64,6 +64,7 @@ function ENT:Reload()--Simple missile launcher function
 			HAmraam:SetPos( self:GetPos() )
 			HAmraam:SetAngles(Angle(self:GetAngles()))
 			HAmraam:Spawn()
+			HAmraam.MissileHasDrag = false
 			constraint.NoCollide( self, HAmraam, 0, 0 )
 			HAmraam:Launch()
 			local phys = HAmraam:GetPhysicsObject()
