@@ -410,22 +410,36 @@ end
 
 function ENT:GetTarget()
 
+	local owner = self:GetCreator()
+
+	local cfgNpc        = GetConVar("target_npc"):GetInt() >= 1
+    local cfgPlayers    = GetConVar("target_players"):GetInt() >= 1
+    local cfgVehicles   = GetConVar("target_vehicles"):GetInt() >= 1
+    local cfgNextBots   = GetConVar("target_nextbots"):GetInt() >= 1
+    local cfgIR         = GetConVar("target_IR"):GetInt() >= 1
+    local cfgThrusters  = GetConVar("target_thrusters"):GetInt() >= 1
+
+
 	for k,n in ipairs(ents.FindInSphere(self:GetPos(), 20000)) do
-		
-		if n:IsNPC() then
+
+		if cfgNpc and n:IsNPC()  then
 			TargetNpc = n
+			break
 		end
 		
-		if n:IsPlayer() then
+		if cfgPlayers and n:IsPlayer() and n ~= owner and n:Alive() then
 			TargetPlayer = n
+			break
 		end			 
 			
-		if n:IsVehicle() then
+		if cfgVehicles and n:IsVehicle() then
 		    TargetVehicle = n
+			break
 		end
 		
-		if n:IsNextBot() then
+		if cfgNextBots and n:IsNextBot() then
 		    TargetNextBot = n
+			break
 		end	
 		
 	end
@@ -434,14 +448,14 @@ function ENT:GetTarget()
 	
 	
 	for k,i in ipairs(ents.FindByClass("IR_Target")) do
-		if i:IsInWorld() then
+		if cfgIR and i:IsInWorld() then
 			TargetIR = i
 			break 
 		end
 	end
 	
 	for k,t in ipairs(ents.FindByClass("gmod_thruster")) do
-		if t:IsInWorld() then
+		if cfgThrusters and t:IsInWorld() then
 			TargetThruster = t
 			break 
 		end
