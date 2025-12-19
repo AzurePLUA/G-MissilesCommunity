@@ -53,9 +53,9 @@ AddCSLuaFile()
                      ENT.RotationalForce                  =  0
                      ENT.ForceOrientation                 =  "NONE"       
                      ENT.Timer                            =  0
-                     ENT.HomingAcc                        =  0.09      --The starting homing accuracy of the missile
-                     ENT.HomingAccIncrease	             =  0.006  --Increases the homing accuracy of the missle over its tracking duration
-                     ENT.HomingFlightSpeed                =  20000   --When Missile is tracking, this controls how fast it flys to its target
+                     ENT.HomingAcc                        =  0.01     --The starting homing accuracy of the missile
+                     ENT.HomingAccIncrease	             =  0.0009  --Increases the homing accuracy of the missle over its tracking duration
+                     ENT.HomingFlightSpeed                =  4000   --When Missile is tracking, this controls how fast it flys to its target
                      ENT.TargetAquireDelay                =  0.5
                      ENT.GuiOffset                        =  43
                      ENT.FuelBurnoutDetonateTime          =  20

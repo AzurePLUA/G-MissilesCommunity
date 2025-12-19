@@ -54,8 +54,8 @@ AddCSLuaFile() -- Make sure clientside
                      ENT.Timer                            =  0
                      ENT.FuelBurnoutDetonateTime          =  20 
                      ENT.HomingAcc    = 0
-                     ENT.HomingAccIncrease	= 0.003
-                     ENT.HomingFlightSpeed = 20000
+                     ENT.HomingAccIncrease	= 0.001
+                     ENT.HomingFlightSpeed = 2600
                      ENT.TargetAquireDelay = 1.4
                      ENT.GuiOffset = 55
                      

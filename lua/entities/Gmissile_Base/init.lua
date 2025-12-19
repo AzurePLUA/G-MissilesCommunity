@@ -389,6 +389,9 @@ end
 				 timer.Simple(self.FuelBurnoutDetonateTime,function() 
 		         self.Burnt = true
 			     end)
+				 if self.Dumb then
+					self.Burned = true
+				 end
 		         self:StopParticles()
 		         self:StopSound(self.EngineSound)
 				 self:StopSound(self.EngineSound2)
@@ -811,6 +814,7 @@ function ENT:Think()
 	self:MissleDrag(2) -- call the drag function for missiles this simulates aerodynamic drag on the missile body
 	
     if(self.Burnt) then return end
+	if self.Burned then return end
      if(not self.Ignition) then return end -- if there wasn't ignition, we won't fly
 	 if(self.Exploded) then return end -- if we exploded then what the fuck are we doing here
 	 if (self.Removed) then return end-- if we were Removed then gtfo of think
@@ -860,8 +864,10 @@ function ENT:Think()
 
 				
 				self:ProximityExplode()
-				
-				--print(self.HomingAcc)
+				if  self.HomingFlightSpeed <= 6000 then -- cap the homing flight speed to max phys limit of 6000
+				self.HomingFlightSpeed = self.HomingFlightSpeed + 5 -- accelerate over time
+				end
+				print(self.HomingFlightSpeed)
 				timer.Simple(10,function() --- secondary timer to ensure missiles eventually directly point at targets to aviod infinite orbiting if all else fails
 					if not self:IsValid() then return end 
 					self.Pointing = true -- set pointing to true so we exit the other point functions to avoid orbiting
