@@ -772,6 +772,39 @@ function ENT:MissleDrag(mult, spdReq) -- missle drag function for missiles that 
     
 end
 
+function ENT:ProximityExplode() -- Proximity fuction to explode when near a target, this also helps prevent infinite orbiting. Here we also reset homing accuracy to 0, resetting the turn rate of the missile to prevent sudden sharp turns once the missile reaches the target
+	if(self.Exploded) then return end
+	if(self.Burned) then return end
+	if(not self.Tracking) then return end
+	
+	local pos = self:GetPos()
+	local MissileOwner = self:GetCreator()
+	local GmissilesMarkedTarget = nil
+	local GmissilesScreenTarget = nil
+	if IsValid(MissileOwner) and MissileOwner:IsPlayer() then
+		 GmissilesMarkedTarget = MissileOwner:GetNWEntity("MarkedTarget")
+	end
+
+	if self.screenEntityTarget ~= nil then 
+	  	 GmissilesScreenTarget = self.screenEntityTarget:GetNWEntity("NW_Target")
+	end
+
+	for k, v in pairs(ents.FindInSphere(pos,300)) do
+	     if v:IsValid() then
+		     if v == TargetNpc or v == TargetPlayer or v == TargetVehicle or v == TargetThruster or v == TargetNextBot or v == TargetIR or v == GmissilesMarkedTarget or v == GmissilesScreenTarget then -- match found entity in proximity to target
+				self.HomingAcc = 0 -- reset homing accuracy to 0 once in proximity to prevent sudden sharp turns before exploding
+				timer.Simple(0.1,function() -- we add delay here to allow missile time to touch the entity properly before exploding. If there is no delay, the missile explodes too far from striders or other npcs/entites that depend on direct impact for damage
+				if(self.Exploded) then return end
+				if not v:IsValid() then return end
+				if not self:IsValid() then return end
+				self.Exploded = true -- set exploded to true to prevent multiple explosions
+				self:Explode()
+				--print("Proximity Explode Triggered")
+				end)
+			 end
+		 end
+	end
+end
 
 function ENT:Think()
 	
@@ -824,8 +857,12 @@ function ENT:Think()
 				self:PointT6()
 				self:PointT7()
 				self:PointT8()
+
+				
+				self:ProximityExplode()
+				
 				--print(self.HomingAcc)
-				timer.Simple(10,function() --- secondary timer to ensure missiles eventually directly point at targets to aviod infinite orbiting
+				timer.Simple(10,function() --- secondary timer to ensure missiles eventually directly point at targets to aviod infinite orbiting if all else fails
 					if not self:IsValid() then return end 
 					self.Pointing = true -- set pointing to true so we exit the other point functions to avoid orbiting
 					
