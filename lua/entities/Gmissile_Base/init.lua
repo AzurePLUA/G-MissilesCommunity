@@ -744,7 +744,7 @@ end
 
 function ENT:MissleDrag(mult, spdReq) -- missle drag function for missiles that arent tracking, Used to point the missile forward towards its direction of travel to simulate fins and drag
 	if(self.Exploded) then return end
-	if(self.Burned) then return end
+	--if(self.Burned) then return end
   	if not self:IsValid() then return end
 	if (self.Tracking) then return end
 	if (self.MissileHasDrag == false) then return end
@@ -848,9 +848,9 @@ function ENT:Think()
 
 		timer.Simple(self.TargetAquireDelay,function()-- calls on the missile to track a target after a short delay
 			if not self:IsValid() then return end 
-			self.Tracking = true -- set tracking to true so drag function knows to not work and so other functions know we are tracking
-			if (not self.Dumb) then
 			
+			if (not self.Dumb) then
+				self.Tracking = true -- set tracking to true so drag function knows to not work and so other functions know we are tracking
 				self:GetTarget()
 				
 				self:PointT2()
@@ -867,7 +867,7 @@ function ENT:Think()
 				if  self.HomingFlightSpeed <= 6000 then -- cap the homing flight speed to max phys limit of 6000
 				self.HomingFlightSpeed = self.HomingFlightSpeed + 5 -- accelerate over time
 				end
-				print(self.HomingFlightSpeed)
+				--print(self.HomingFlightSpeed)
 				timer.Simple(10,function() --- secondary timer to ensure missiles eventually directly point at targets to aviod infinite orbiting if all else fails
 					if not self:IsValid() then return end 
 					self.Pointing = true -- set pointing to true so we exit the other point functions to avoid orbiting
