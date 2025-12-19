@@ -67,7 +67,7 @@ AddCSLuaFile() -- Make sure clientside
  function ENT:SpawnFunction( ply, tr )-- Used so the ENT doesnt fucking spawn in the ground
 	
     if ( not tr.Hit ) then return end
-	 self.GBOWNER = ply
+	 self.GMISSILE = ply
      local ent = ents.Create( self.ClassName )
 	 ent:SetPhysicsAttacker(ply)
      ent:SetPos( tr.HitPos + tr.HitNormal * 0.01 ) -- Changing the right most number makes the entity spawn further up or down...

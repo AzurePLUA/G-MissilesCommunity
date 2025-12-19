@@ -205,16 +205,28 @@ function ENT:Explode() -- THE EXPLOSION FUNCTION
 	 ent:SetVar("DEFAULT_PHYSFORCE_PLYGROUND", self.DEFAULT_PHYSFORCE_PLYGROUND)
 	 ent:SetVar("GMISSILE", self.GMISSILE)
 	 ent:SetVar("MAX_RANGE",self.ExplosionRadius)
+	 ent:SetVar("EXPLOSION_DMG", self.ExplosionDamage)
+	 ent.ExplosionDamage = self.ExplosionDamage
 	 ent:SetVar("SHOCKWAVE_INCREMENT",100)
 	 ent:SetVar("DELAY",0.01)
 	 ent.trace=self.TraceLength
 	 ent.decal=self.Decal
 
+	 if self.GMISSILE == nil then
+		self.GMISSILE = self
+	 end
+	 if not self.GMISSILE:IsValid() then
+		self.GMISSILE = table.Random(player.GetAll())
+	 end
+
+	 util.BlastDamage(self, self.GMISSILE, pos, self.ExplosionRadius, self.ExplosionDamage)
+	 --print("BlastDamage dealt: "..self.ExplosionDamage)
+
 	 local ent = ents.Create("gmissiles_expl_sound")
 	 ent:SetPos( pos ) 
 	 ent:Spawn()
 	 ent:Activate()
-	 ent:SetVar("GMISSILE", self.HBOWNER)
+	 ent:SetVar("GMISSILE", self.GMISSILE)
 	 ent:SetVar("MAX_RANGE",50000)
 	 ent:SetVar("SHOCKWAVE_INCREMENT",100)
 	 ent:SetVar("DELAY",0.01)
@@ -954,7 +966,7 @@ end
  function ENT:SpawnFunction( ply, tr )-- Used so the ENT doesnt fucking spawn in the ground
 	
     if ( not tr.Hit ) then return end
-	 self.GBOWNER = ply
+	 self.GMISSILE = ply
      local ent = ents.Create( self.ClassName )
 	 ent:SetPhysicsAttacker(ply)
      ent:SetPos( tr.HitPos + tr.HitNormal * 0.01 ) -- Changing the right most number makes the entity spawn further up or down...

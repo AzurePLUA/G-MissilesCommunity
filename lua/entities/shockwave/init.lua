@@ -19,8 +19,9 @@ if SERVER then
 		 self.DEFAULT_PHYSFORCE_PLYAIR  = self:GetVar("DEFAULT_PHYSFORCE_PLYAIR")
 		 self.DEFAULT_PHYSFORCE_PLYGROUND = self:GetVar("DEFAULT_PHYSFORCE_PLYGROUND")
 		 self.SHOCKWAVEDAMAGE = self:GetVar("SHOCKWAVE_DAMAGE")
-		 self.ExplosionDamage = self:GetVar("EXPLOSION_DMG")
+		 self.ExplosionDamage = self.ExplosionDamage or 1000
 		 self.allowtrace=true
+		 self.Exploded = false 
 	end
 end
 function ENT:Trace()
@@ -41,6 +42,16 @@ function ENT:Trace()
 		end
 	end
 end
+--[[
+function ENT:StuffTakeDamage()
+	if self.Exploded then return end
+	if not self:IsValid() then return end
+	local pos = self:GetPos()
+	util.BlastDamage(self, self.GMISSILE, pos, self.MAX_RANGE, self.ExplosionDamage)
+	print("BlastDamage dealt: "..self.ExplosionDamage)
+	self.Exploded = true
+end	
+]]--
 function ENT:Think()		
      if (SERVER) then
      if not self:IsValid() then return end
@@ -50,6 +61,7 @@ function ENT:Think()
 		self:Trace()
 		self.allowtrace=false
 	 end
+	 
 	 for k, v in pairs(ents.FindInSphere(pos,self.MAX_RANGE)) do
 		 if (v:IsValid() or v:IsPlayer()) then
 		 	if v:IsNextBot() then
@@ -115,11 +127,15 @@ function ENT:Think()
 				 end
 				 if (v:IsNPC()) then
 					 v:TakeDamageInfo(dmg)
+					 --print(dmg)
+					-- self:StuffTakeDamage()
 				 end
 
 				 if  v:IsVehicle() or v.isWacAircraft or v:IsSolid() and not v:IsNPC() and not v:IsPlayer() then
 					-- v:TakeDamageInfo(Vdmg)
 					 v:TakeDamage(500)
+					-- self:StuffTakeDamage()
+
 				 end
 			 i = i + 1
 			 end
