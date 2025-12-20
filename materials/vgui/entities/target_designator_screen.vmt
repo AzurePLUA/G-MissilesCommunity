@@ -1,0 +1,4 @@
+UnlitGeneric
+{
+	$basetexture "vgui/entities/target_designator_screen"
+}
