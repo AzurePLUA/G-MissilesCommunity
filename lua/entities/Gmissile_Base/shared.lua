@@ -69,3 +69,4 @@ ENT.DEFAULT_PHYSFORCE_PLYGROUND = 2555
 ENT.GMISSILE                         = nil
 -- freeze behaviour: per-entity can override this in their files (e.g. `ENT.FreezeOnSpawn = true`)
 ENT.FreezeOnSpawn = false
+ENT.UseClusterMunition = false

@@ -187,7 +187,42 @@ function ENT:OnTakeDamage(dmginfo) ---ARM When hitting something
 	 end
 end
 
+function ENT:clusterExplode()
+	if not self.UseClusterMunition then return end
 
+	local pos   = self:GetPos()
+	local vel   = self:GetVelocity()
+	local owner = self:GetOwner()
+
+	for i = 1, 25 do
+		local delay = i * 0.05
+
+		timer.Simple(delay, function()
+			local cluster = ents.Create("gmissiles_Cluster_Munition")
+			if not IsValid(cluster) then return end
+
+			-- VERY wide spawn scatter
+			cluster:SetPos(pos)
+			cluster:SetAngles(AngleRand())
+			cluster:SetOwner(owner)
+			cluster:SetCollisionGroup(COLLISION_GROUP_PROJECTILE)
+			cluster:SetNoDraw(true)
+			cluster:Spawn()
+			cluster:Activate()
+			cluster:Arm()
+			cluster:Launch()
+
+			local phys = cluster:GetPhysicsObject()
+			if IsValid(phys) then
+				-- BIG velocity cone
+				local dir = VectorRand():GetNormalized()
+				local speed = math.Rand(800, 1200)
+
+				phys:SetVelocity(vel + dir * speed)
+			end
+		end)
+	end
+end
 
 function ENT:Explode() -- THE EXPLOSION FUNCTION
 	-- if self.Exploded ==true then self:EmitSound(self.ExplosionSound, 511, 100, 1, CHAN_WEAPON)end
@@ -233,6 +268,7 @@ function ENT:Explode() -- THE EXPLOSION FUNCTION
 	 ent:SetVar("SOUND", self.ExplosionSound)
 	 ent:SetVar("Shocktime", self.Shocktime)
 
+	 self:clusterExplode()
 
 	 for k, v in pairs(ents.FindInSphere(pos,self.SpecialRadius)) do --If shit is within range then THROW SHIT EVERYWHERE!!
 	     if v:IsValid() then
@@ -792,7 +828,13 @@ function ENT:ProximityExplode() -- Proximity fuction to explode when near a targ
 	  	 GmissilesScreenTarget = self.screenEntityTarget:GetNWEntity("NW_Target")
 	end
 
-	for k, v in pairs(ents.FindInSphere(pos,300)) do
+	if self.UseClusterMunition == true then
+		self.ProximityRadius = 2500 -- increase proximity radius for cluster munitions to deploy
+	else
+		self.ProximityRadius = 300 -- default proximity radius
+	end
+
+	for k, v in pairs(ents.FindInSphere(pos,self.ProximityRadius)) do
 	     if v:IsValid() then
 		     if v == TargetNpc or v == TargetPlayer or v == TargetVehicle or v == TargetThruster or v == TargetNextBot or v == TargetIR or v == GmissilesMarkedTarget or v == GmissilesScreenTarget then -- match found entity in proximity to target
 				self.HomingAcc = 0 -- reset homing accuracy to 0 once in proximity to prevent sudden sharp turns before exploding
