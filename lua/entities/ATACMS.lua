@@ -2,7 +2,7 @@ AddCSLuaFile()
 DEFINE_BASECLASS( "gmissile_base" )
 ENT.Type = "anim"
 ENT.Category = "G-Missiles Guided"
-ENT.PrintName = "Atacams Block IA(Cluster Warhead)"
+ENT.PrintName = "Atacms Block IA(Cluster Warhead)"
 ENT.Author = "Forsomethings1"
 ENT.Contact = "Don't"
 ENT.Purpose = "Blow Shit Up"
