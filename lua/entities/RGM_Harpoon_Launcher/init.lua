@@ -138,18 +138,25 @@ function ENT:OnRemove()--Removes spawned missiles
 end
 
 function ENT:OnRestore()
+	if not (WireAddon == nil) then
      Wire_Restored(self.Entity)
+	end
 end
 
 function ENT:BuildDupeInfo()
+	if not (WireAddon == nil) then
      return WireLib.BuildDupeInfo(self.Entity)
+	end
 end
 
 function ENT:ApplyDupeInfo(ply, ent, info, GetEntByID)
+	if not (WireAddon == nil) then
      WireLib.ApplyDupeInfo( ply, ent, info, GetEntByID )
+	end
 end
 
 function ENT:PreEntityCopy()
+	if (WireAddon == nil) then return end
      local DupeInfo = self:BuildDupeInfo()
      if(DupeInfo) then
          duplicator.StoreEntityModifier(self,"WireDupeInfo",DupeInfo)
@@ -157,6 +164,7 @@ function ENT:PreEntityCopy()
 end
 
 function ENT:PostEntityPaste(Player,Ent,CreatedEntities)
+	if (WireAddon == nil) then return end
      if(Ent.EntityMods and Ent.EntityMods.WireDupeInfo) then
          Ent:ApplyDupeInfo(Player, Ent, Ent.EntityMods.WireDupeInfo, function(id) return CreatedEntities[id] end)
      end
