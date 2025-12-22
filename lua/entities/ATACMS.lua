@@ -8,6 +8,7 @@ ENT.Contact = "Don't"
 ENT.Purpose = "Blow Shit Up"
 ENT.Instructions = "Atacams Block IA(Cluster Warhead)"
 ENT.Spawnable = true
+ENT.AdminOnly = true
 ENT.MissileModel = "models/GMissiles/AGM-65_Maverick.mdl"
 ENT.RocketTrail = "Rocket_Thrust"
 ENT.RocketBurnoutTrail = "oxykerosine_burnout"
