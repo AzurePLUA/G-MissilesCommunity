@@ -192,33 +192,39 @@ function ENT:clusterExplode()
 
 	local pos   = self:GetPos()
 	local vel   = self:GetVelocity()
-	local owner = self:GetOwner()
+	--local owner = self:GetOwner()
 
 	for i = 1, 25 do
 		local delay = i * 0.05
 
 		timer.Simple(delay, function()
-			local cluster = ents.Create("gmissiles_Cluster_Munition")
-			if not IsValid(cluster) then return end
+			local ok, err = pcall(function()
+				local cluster = ents.Create("gmissiles_Cluster_Munition")
+				if not IsValid(cluster) then return end
 
-			-- VERY wide spawn scatter
-			cluster:SetPos(pos)
-			cluster:SetAngles(AngleRand())
-			cluster:SetOwner(owner)
-			cluster:SetCollisionGroup(COLLISION_GROUP_PROJECTILE)
-			cluster:SetNoDraw(true)
-			cluster:Spawn()
-			cluster:Activate()
-			cluster:Arm()
-			cluster:Launch()
+				-- VERY wide spawn scatter
+				cluster:SetPos(pos)
+				cluster:SetAngles(AngleRand())
+				--cluster:SetOwner(owner)
+				cluster:SetCollisionGroup(COLLISION_GROUP_PROJECTILE)
+				cluster:SetNoDraw(true)
+				cluster:Spawn()
+				cluster:Activate()
+				cluster:Arm()
+				cluster:Launch()
 
-			local phys = cluster:GetPhysicsObject()
-			if IsValid(phys) then
-				-- BIG velocity cone
-				local dir = VectorRand():GetNormalized()
-				local speed = math.Rand(800, 1200)
+				local phys = cluster:GetPhysicsObject()
+				if IsValid(phys) then
+					-- BIG velocity cone
+					local dir = VectorRand():GetNormalized()
+					local speed = math.Rand(800, 1200)
 
-				phys:SetVelocity(vel + dir * speed)
+					phys:SetVelocity(vel + dir * speed)
+				end
+			end)
+
+			if not ok then
+				ErrorNoHaltWithStack("[clusterExplode Error] ", err)
 			end
 		end)
 	end
@@ -342,9 +348,9 @@ function ENT:PhysicsCollide( data, physobj )-- WERE HIT, ARM OR EXPLODE
 	 if(self.Life <= 0) then return end
 	 if(data.DeltaTime>.1)then
 		if(data.Speed>200)then
-			self.Entity:EmitSound("Canister.ImpactHard")
+			self:EmitSound("Canister.ImpactHard")
 		elseif(data.Speed>20)then
-			self.Entity:EmitSound("Canister.ImpactSoft")
+			self:EmitSound("Canister.ImpactSoft")
 		end
 	end
 	 if(GetConVar("GMissiles_fragility"):GetInt() >= 1) then
