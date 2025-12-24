@@ -250,7 +250,7 @@ function ENT:Explode() -- THE EXPLOSION FUNCTION
 	 if self.GMISSILE == nil then
 		self.GMISSILE = self
 	 end
-	 if not self.GMISSILE:IsValid() then
+	 if not IsValid(self.GMISSILE) then
 		self.GMISSILE = table.Random(player.GetAll())
 	 end
 
