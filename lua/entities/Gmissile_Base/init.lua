@@ -253,15 +253,22 @@ function ENT:Explode() -- THE EXPLOSION FUNCTION
 	 ent.trace=self.TraceLength
 	 ent.decal=self.Decal
 
-	 if self.GMISSILE == nil then
+	 local ok, err = pcall(function()
+
+	 	if self.GMISSILE == nil then
 		self.GMISSILE = self
-	 end
-	 if not IsValid(self.GMISSILE) then
+	 	end
+		if not self.GMISSILE:IsValid() then
 		self.GMISSILE = table.Random(player.GetAll())
-	 end
+		end
 
 	 util.BlastDamage(self, self.GMISSILE, pos, self.ExplosionRadius, self.ExplosionDamage)
 	 --print("BlastDamage dealt: "..self.ExplosionDamage)
+	 end)
+
+	 if not ok then
+    	ErrorNoHaltWithStack("[Util.BlastDamage Error] could not apply util.BlastDamage continuing: " .. err .. "\n")
+	 end
 
 	 local ent = ents.Create("gmissiles_expl_sound")
 	 ent:SetPos( pos ) 
