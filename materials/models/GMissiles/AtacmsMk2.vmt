@@ -1,0 +1,18 @@
+VertexLitGeneric
+{
+	$basetexture "models/gmissiles/atacms_defaultmaterial_basecolor"
+	$bumpmap "models/gmissiles/atacms_defaultmaterial_normal"
+	$surfaceprop Metal_Barrel
+
+	$detail "models/gmissiles/atacms_defaultmaterial_roughness"
+	$detailscale 1
+
+	$phong 1
+	$phongfresnelranges "[0.19 0.59 1]"
+	$phongtint "[0.34 0.34 0.34]"
+	$phongexponent 13
+	$phongboost 5.57
+	$phongalbedoboost 2.8
+
+	$model 1
+}
