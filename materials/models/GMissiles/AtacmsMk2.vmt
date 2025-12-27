@@ -1,7 +1,7 @@
 VertexLitGeneric
 {
 	$basetexture "models/gmissiles/atacms_defaultmaterial_basecolor"
-	$bumpmap "models/gmissiles/atacms_defaultmaterial_normal"
+	$bumpmap "models/GMissiles/Atacms_DefaultMaterial_Normal"
 	$surfaceprop Metal_Barrel
 
 	$detail "models/gmissiles/atacms_defaultmaterial_roughness"
